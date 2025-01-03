@@ -1,9 +1,26 @@
 # ファイル: app.py
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 from amazon_paapi import AmazonApi, SearchItemsRequest
+import datetime
 
 app = Flask(__name__)
+
+# データベース設定
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///search_history.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db = SQLAlchemy(app)
+
+# データベースモデル
+class SearchHistory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    keyword = db.Column(db.String(100), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
+# 初回実行時にデータベース作成
+with app.app_context():
+    db.create_all()
 
 # Amazon Product Advertising APIクレデンシャル
 ACCESS_KEY = "YOUR_AMAZON_ACCESS_KEY"
@@ -39,9 +56,39 @@ def index():
     if request.method == "POST":
         keyword = request.form.get("keyword")
         if keyword:
+            # 検索履歴を保存
+            new_history = SearchHistory(keyword=keyword)
+            db.session.add(new_history)
+            db.session.commit()
+            # 商品検索
             products = search_products(keyword)
 
-    return render_template("index.html", products=products)
+    # 履歴取得
+    search_history = SearchHistory.query.order_by(SearchHistory.timestamp.desc()).all()
+    return render_template("index.html", products=products, history=search_history)
+
+# 再検索ルート
+@app.route("/search/<keyword>")
+def search_again(keyword):
+    products = search_products(keyword)
+    search_history = SearchHistory.query.order_by(SearchHistory.timestamp.desc()).all()
+    return render_template("index.html", products=products, history=search_history)
+
+# 個別履歴削除
+@app.route("/delete/<int:history_id>")
+def delete_history(history_id):
+    history = SearchHistory.query.get(history_id)
+    if history:
+        db.session.delete(history)
+        db.session.commit()
+    return redirect(url_for("index"))
+
+# 全履歴削除
+@app.route("/delete_all")
+def delete_all_history():
+    db.session.query(SearchHistory).delete()
+    db.session.commit()
+    return redirect(url_for("index"))
 
 if __name__ == "__main__":
     app.run(debug=True)
