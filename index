@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Affiliate Blog</title>
+    <title>My test Blog</title>
     <style>
         body { font-family: Arial, sans-serif; }
         .product { margin-bottom: 20px; }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Affiliate Blog</h1>
+    <h1>Welcome to test Blog</h1>
     <p>Here are some of my favorite products:</p>
     <div class="product">
         <h2>Product 1</h2>
