@@ -22,6 +22,16 @@
         form {
             margin-bottom: 20px;
         }
+        .history {
+            margin-bottom: 20px;
+        }
+        .history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .history ul li {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -30,6 +40,21 @@
         <input type="text" name="keyword" placeholder="商品名を入力" required>
         <button type="submit">検索</button>
     </form>
+
+    <div class="history">
+        <h2>検索履歴</h2>
+        <a href="/delete_all" style="color: red;">全履歴を削除</a>
+        <ul>
+            {% for entry in history %}
+            <li>
+                <a href="{{ url_for('search_again', keyword=entry.keyword) }}">{{ entry.keyword }}</a>
+                <span>({{ entry.timestamp.strftime('%Y-%m-%d %H:%M:%S') }})</span>
+                <a href="{{ url_for('delete_history', history_id=entry.id) }}" style="color: red;">削除</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
     <div>
         {% if products %}
             {% for product in products %}
