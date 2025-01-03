@@ -7,12 +7,12 @@ products = [
     {
         "name": "Product 1",
         "description": "Amazing product for daily use!",
-        "link": "https://www.amazon.com/dp/B08N5WRWNW?tag=your-affiliate-id-20"
+        "link": "https://www.amazon.com/"
     },
     {
         "name": "Product 2",
         "description": "Another great item I recommend!",
-        "link": "https://www.amazon.com/dp/B07FZ8S74R?tag=your-affiliate-id-20"
+        "link": "https://www.amazon.com/"
     }
 ]
 
