@@ -23,10 +23,10 @@ with app.app_context():
     db.create_all()
 
 # Amazon Product Advertising APIクレデンシャル
-ACCESS_KEY = "YOUR_AMAZON_ACCESS_KEY"
-SECRET_KEY = "YOUR_AMAZON_SECRET_KEY"
-PARTNER_TAG = "YOUR_PARTNER_TAG"
-REGION = "us-east-1"
+#ACCESS_KEY = "YOUR_AMAZON_ACCESS_KEY"
+#SECRET_KEY = "YOUR_AMAZON_SECRET_KEY"
+#PARTNER_TAG = "YOUR_PARTNER_TAG"
+#REGION = "JP"
 
 # 商品検索関数
 def search_products(keyword):
