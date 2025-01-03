@@ -1,75 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品検索</title>
+    <title>My Affiliate Blog</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .product {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .product img {
-            max-width: 100px;
-            margin-right: 20px;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        .history {
-            margin-bottom: 20px;
-        }
-        .history ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .history ul li {
-            margin-bottom: 5px;
-        }
+        body { font-family: Arial, sans-serif; }
+        .product { margin-bottom: 20px; }
     </style>
 </head>
 <body>
-    <h1>商品検索</h1>
-    <form method="POST">
-        <input type="text" name="keyword" placeholder="商品名を入力" required>
-        <button type="submit">検索</button>
-    </form>
-
-    <div class="history">
-        <h2>検索履歴</h2>
-        <a href="/delete_all" style="color: red;">全履歴を削除</a>
-        <ul>
-            {% for entry in history %}
-            <li>
-                <a href="{{ url_for('search_again', keyword=entry.keyword) }}">{{ entry.keyword }}</a>
-                <span>({{ entry.timestamp.strftime('%Y-%m-%d %H:%M:%S') }})</span>
-                <a href="{{ url_for('delete_history', history_id=entry.id) }}" style="color: red;">削除</a>
-            </li>
-            {% endfor %}
-        </ul>
+    <h1>Welcome to My Affiliate Blog</h1>
+    <p>Here are some of my favorite products:</p>
+    <div class="product">
+        <h2>Product 1</h2>
+        <p>Amazing product for daily use!</p>
+        <a href="https://www.amazon.com/dp/B08N5WRWNW?tag=your-affiliate-id-20" target="_blank">Buy on Amazon</a>
     </div>
-
-    <div>
-        {% if products %}
-            {% for product in products %}
-            <div class="product">
-                <img src="{{ product.image }}" alt="{{ product.title }}">
-                <div>
-                    <h2>{{ product.title }}</h2>
-                    <p>価格: {{ product.price }}</p>
-                    <a href="{{ product.url }}" target="_blank">詳細を見る</a>
-                </div>
-            </div>
-            {% endfor %}
-        {% else %}
-            <p>検索結果がありません。</p>
-        {% endif %}
+    <div class="product">
+        <h2>Product 2</h2>
+        <p>Another great item I recommend!</p>
+        <a href="https://www.amazon.com/dp/B07FZ8S74R?tag=your-affiliate-id-20" target="_blank">Buy on Amazon</a>
     </div>
 </body>
 </html>
