@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品検索</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .product img {
+            max-width: 100px;
+            margin-right: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>商品検索</h1>
+    <form method="POST">
+        <input type="text" name="keyword" placeholder="商品名を入力" required>
+        <button type="submit">検索</button>
+    </form>
+    <div>
+        {% if products %}
+            {% for product in products %}
+            <div class="product">
+                <img src="{{ product.image }}" alt="{{ product.title }}">
+                <div>
+                    <h2>{{ product.title }}</h2>
+                    <p>価格: {{ product.price }}</p>
+                    <a href="{{ product.url }}" target="_blank">詳細を見る</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>検索結果がありません。</p>
+        {% endif %}
+    </div>
+</body>
+</html>
