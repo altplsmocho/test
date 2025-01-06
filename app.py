@@ -1,3 +1,4 @@
+# Copyright © 2025 altplsmocho. All rights reserved.
 from flask import Flask, render_template, request
 from amazon_paapi import AmazonApi
 
